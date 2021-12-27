@@ -1,3 +1,5 @@
+package Object.Chpater1;
+
 public class Bag{
     private Long amount;
     private Invitation invitation;
@@ -8,7 +10,7 @@ public class Bag{
         this(null, amount);
     }
 
-    public Bag(Inviation inviation, long amount){
+    public Bag(Invitation inviation, long amount){
         this.invitation = inviation;
         this.amount = amount;
     }
@@ -22,7 +24,7 @@ public class Bag{
     }
 
     public void setTicket(Ticket ticket){
-        this.ticket = ticket
+        this.ticket = ticket;
     }
 
     public void minusAmount(Long amount){

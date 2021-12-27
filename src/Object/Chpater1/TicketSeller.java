@@ -1,3 +1,5 @@
+package Object.Chpater1;
+
 public class TicketSeller{
     private TicketOffice ticketOffice;
 
@@ -6,6 +8,6 @@ public class TicketSeller{
     }
 
     public TicketOffice getTicketOffice(){
-        return ticketOffice
+        return ticketOffice;
     }
 }

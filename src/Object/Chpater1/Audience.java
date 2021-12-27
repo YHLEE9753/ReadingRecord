@@ -1,11 +1,13 @@
+package Object.Chpater1;
+
 public class Audience{
     private Bag bag;
 
-    public Audience(Bad bad){
+    public Audience(Bag bag){
         this.bag = bag;
     }
 
-    public Bag getBad(){
+    public Bag getBag(){
         return bag;
     }
 }

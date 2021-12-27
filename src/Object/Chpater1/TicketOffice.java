@@ -13,15 +13,20 @@ public class TicketOffice{
         this.tickets.addAll(Arrays.asList(tickets));
     }
 
-    public Ticket getTicket(){
+    // 응집성 추가 - audience 와 office 간의 의존성 추가된다. 여기부터는 정답이 없다
+    public void sellTicketTo(Audience audience){
+        plusAmount(audience.buy(getTicket()));
+    }
+
+    private Ticket getTicket(){
         return tickets.remove(0);
     }
+//
+//    public void minusAmount(Long amount){
+//        this.amount -= amount;
+//    }
 
-    public void minusAmount(Long amount){
-        this.amount -= amount;
-    }
-
-    public void plusAmount(Long amount){
+    private void plusAmount(Long amount){
         this.amount += amount;
     }
 }

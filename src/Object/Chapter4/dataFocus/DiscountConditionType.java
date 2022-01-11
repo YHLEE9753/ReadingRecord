@@ -1,4 +1,4 @@
-package Object.Chpater4.dataFocus;
+package Object.Chapter4.dataFocus;
 
 public enum DiscountConditionType {
     SEQUENCE, // 순번 조건

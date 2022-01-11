@@ -1,4 +1,4 @@
-package Object.Chpater4.collaboration;
+package Object.Chapter4.collaboration;
 
 public enum DiscountConditionType {
     SEQUENCE, // 순번 조건

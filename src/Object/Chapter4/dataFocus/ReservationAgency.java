@@ -1,4 +1,4 @@
-package Object.Chpater4.collaboration;
+package Object.Chapter4.dataFocus;
 
 public class ReservationAgency {
     public Reservation reserve(Screening screening, Customer customer, int audienceCount){

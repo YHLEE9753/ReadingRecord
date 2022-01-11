@@ -1,4 +1,4 @@
-package Object.Chpater4.dataFocus;
+package Object.Chapter4.dataFocus;
 
 public class Reservation {
     private Customer customer;

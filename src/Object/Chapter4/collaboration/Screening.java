@@ -1,4 +1,4 @@
-package Object.Chpater4.collaboration;
+package Object.Chapter4.collaboration;
 
 import java.time.LocalDateTime;
 

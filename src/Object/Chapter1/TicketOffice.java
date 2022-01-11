@@ -1,4 +1,4 @@
-package Object.Chpater1;
+package Object.Chapter1;
 
 import java.util.ArrayList;
 import java.util.Arrays;

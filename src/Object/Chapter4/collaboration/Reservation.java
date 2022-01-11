@@ -1,4 +1,4 @@
-package Object.Chpater4.collaboration;
+package Object.Chapter4.collaboration;
 
 public class Reservation {
     private Customer customer;

@@ -1,4 +1,4 @@
-package Object.Chpater4.dataFocus;
+package Object.Chapter4.dataFocus;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;

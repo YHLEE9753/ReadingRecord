@@ -1,4 +1,4 @@
-package Object.Chpater1;
+package Object.Chapter1;
 
 public class Theater{
     private TicketSeller ticketSeller;

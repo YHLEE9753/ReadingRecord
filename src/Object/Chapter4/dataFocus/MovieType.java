@@ -1,4 +1,4 @@
-package Object.Chpater4.collaboration;
+package Object.Chapter4.dataFocus;
 
 public enum MovieType {
     AMOUNT_DISCOUNT,  // 금액 할인 정책

@@ -18,8 +18,8 @@ public class DiscountCondition {
 
     private boolean isSatisfiedByPeriod(Screening screening){
         return dayOfWeek.equals(screening.getWhenScreened().getDayOfWeek()) &&
-                startTime.compareTo(screening.getWhenScreened().toLocalTime()) <= 0 &&
-                endTime.isAfter(screening.getWhenScreened().toLocalTime()) >= 0;
+                startTime.compareTo(screening.getWhenScreened().toLocalTime()) <= 0; //&&
+//                endTime.isAfter(screening.getWhenScreened().toLocalTime()) >= 0;
     }
 
     private boolean isSatisfiedBySequence(Screening screening){

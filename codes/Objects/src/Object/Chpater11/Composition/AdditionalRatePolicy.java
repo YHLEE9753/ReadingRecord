@@ -14,6 +14,4 @@ public abstract class AdditionalRatePolicy implements RatePolicy {
     }
 
     protected abstract Money afterCalculated(Money fee);
-
-
 }

@@ -1,6 +1,5 @@
-package Object.Chpater11.Composition;
+package Object.Chapter11.Composition;
 
-import java.rmi.registry.Registry;
 import java.time.Duration;
 
 public class MainClass {

@@ -1,4 +1,4 @@
-package Object.Chpater11.Composition;
+package Object.Chapter11.Composition;
 
 public class TaxablePolicy extends AdditionalRatePolicy{
     private double taxRatio;

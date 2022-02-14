@@ -1,4 +1,4 @@
-package Object.Chpater11.Composition;
+package Object.Chapter11.Composition;
 
 public abstract class BasicRatePolicy implements RatePolicy{
     @Override

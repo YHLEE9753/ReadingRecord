@@ -31,6 +31,7 @@ Composite : "Component"  인터페이스를 구현하고, 구현되는 자식(Le
 <img width="450" alt="그림3" src="https://user-images.githubusercontent.com/71916223/154431469-b8bf6df6-a373-41f5-9b5d-4a5ad2b58d2c.png">
 
 <br>
+
 ```java
 /** "Component" */
 interface Graphic {

@@ -6,11 +6,15 @@ COMPOSITE 패턴 : 클라이언트가 개별 객체와 복합 객체를 동일�
 - 전체-부분 관계를 클라이언트에서 부분, 관계 객체를 균일하게 처리하고 싶을 경우.
 
 예) 여러개의 discount 정책을 List 로 담고 싶을때<br>
-그림1
+
+![그림1](https://user-images.githubusercontent.com/71916223/154431461-39b16113-17cc-472d-b2a4-2e8d618e8736.PNG)
+
 <br>
 <br>
 COMPOSITE 패턴 구조<br>
-그림2
+
+<img width="450" alt="그림2" src="https://user-images.githubusercontent.com/71916223/154431474-ef6662e9-166d-4147-a36b-0276f2dbb017.png">
+
 <br>
 "Client" 클래스는 "Leaf" 와 "Composite" 클래스를 직접 참조하지 않고, 공통 인터페이스 "Component" 를 참조하는 것을 볼 수 있다.<br>
 "Leaf" 클래스는 "Component" 인터페이스를 구현한다.<br>
@@ -23,7 +27,9 @@ Composite : "Component"  인터페이스를 구현하고, 구현되는 자식(Le
 
 *Composite.operation() => Leaf.operation(), 자세한 이해는 아래 예제를 통해 할 수 있다.*<br>
 <br>
-그림3
+
+<img width="450" alt="그림3" src="https://user-images.githubusercontent.com/71916223/154431469-b8bf6df6-a373-41f5-9b5d-4a5ad2b58d2c.png">
+
 <br>
 ```java
 /** "Component" */
@@ -97,7 +103,10 @@ public class Program {
 }
 
 ```
-<그림4><br>
+
+<img width="450" alt="그림4" src="https://user-images.githubusercontent.com/71916223/154431470-b2502f83-3045-4357-ab1a-b9805d73170a.png">
+
+<br>
 지금까지 다룬 방식은 타입의 안정성을 추구하는 방식이다.
 
 이것은 자식을 다루는 add(), remove() 와 같은 메소드들은 오직 "Composite" 만 정의되었다.
@@ -138,4 +147,4 @@ Graphic graphic = new CompositeGraphic();
 
 
 
-출처: https://mygumi.tistory.com/343 [마이구미의 HelloWorld]
+출처: https://mygumi.tistory.com/343 [마이구미의 HelloWorld], 오브젝트(도서)

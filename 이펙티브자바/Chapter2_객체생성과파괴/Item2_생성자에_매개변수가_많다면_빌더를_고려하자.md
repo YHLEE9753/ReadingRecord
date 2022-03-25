@@ -107,7 +107,7 @@ public class NutrionFacts {
 }
 ```
 
-- Item2Builder 클래스는 불변이며, 세터 메서드들은 빌더 자신을 반환하기 때문에 연쇄적으로 호출 가능하다.
+- NutrionFacts 클래스는 불변이며, 세터 메서드들은 빌더 자신을 반환하기 때문에 연쇄적으로 호출 가능하다.
 - 이러한 호출 발식을 플루언트 API(fluent API) 혹은 메서드 연쇄(method chaining) 라 한다.
 - 다만 유효성 검사 코드가 생략되어 있다.
   - builder 메서드가 호출하는 생성자에서 여러 매개변수에 걸친 불변식(invariant)를 검사하자.
@@ -207,9 +207,13 @@ public class NyPizza extends Pizza{
 - **하지만 이점이 많기 때문에 빌더 패턴을 애용하자**
 
 ## 6. Lombok 빌더
-- @Builder : Builder 패턴을 자동으로 생성해주는데, builderMethodName에 들어간 이름으로 빌더 메서드를 생성해준다.<br>
-- 클래스 내부 builder 메서드 : 필수로 들어가야할 필드들을 검증하기 위해 만들었다. 꼭 id가 아니라도 해당 클래스를 객체로 생성할 때 필수적인 필드가 있다면 활용할 수 있다.<br>
-- @Builder.Default : JPA 엔티티 생성시 1대다 관계를 위해 미리 배열을 담든 경우가 있는데 이런경우에 어노테이션을 쓰면 null 값 초기화에서 그 변수를 제외한다.
+### 클래스에 @Builder 사용할 경우
+- ```@Builder``` : Builder 패턴을 자동으로 생성해주는데, builderMethodName에 들어간 이름으로 빌더 메서드를 생성해준다.<br>
+- ```@Builder``` 어노테이션을 클래스에 작성할 경우 반드시 ```@AllArgsConstructor``` 를 적어주어야 한다.
+- ```@Builder.Default``` : JPA 엔티티 생성시 1대다 관계를 위해 미리 배열을 담든 경우가 있는데 이런경우에 어노테이션을 쓰면 null 값 초기화에서 그 변수를 제외한다.
+- 클래스 내부 builder 메서드 : 필수로 들어가야할 필드들을 검증하기 위해 만들었다. 해당 클래스를 객체로 생성할 때 필수적인 필드가 있다면 활용할 수 있다.
+
+
 ```java
 @Entity
 @Getter
@@ -262,6 +266,14 @@ public class MyDrug {
         user.getMyDrugs().add(this);
     }
 
+
+    // 필수 매개변수 체크 용 클래스 내부 builder 메서드
+    public static TravelCheckListBuilder builder(Long id) {
+        if(id == null) {
+            throw new IllegalArgumentException("필수 파라미터 누락");
+        }
+        return travelCheckListBuilder().id(id);
+    }
 }
 
 ```
@@ -276,8 +288,25 @@ MyDrug myDrug=MyDrug.builder()
         .treatdsgb(treatdsgb)
         .prescribeCnt(prescribecnt)
         .treatMedicalnm(treatmedicalnm)
+//        .myDrugDetails(new ArrayList<>())
         .build();
 ```
 
-클래스 내부 builder 메서드를 통한 필수로 들어가야할 필드들을 검증<br>
-https://zorba91.tistory.com/298
+### 생성자에 @Builder 를 사용할 경우
+- lombok 사용 시 생성자 매개변수의 순서가 바뀌어 에러가 발생할 수 있으므로 ```@AllArgsConstructor``` 사용을 지양해야 한다.
+- 클래스 상단에 선언하면 비즈니스 로직에서 어떻게 객체를 생성하는지 추척이 어렵다.
+- 개발자의 실수로 필드를 누락하여 null 이 들어갈 수 있고 이러한 실수는 런타임때 발견이 된다.
+- 따라서 정말 간단한 객체가 아니라면 생성자를 통한 빌더 사용을 권장한다.
+
+```java
+public static class Order {
+    private long cancelPrice;
+    private long orderPrice;
+ 
+    @Builder
+    private Order(long cancelPrice, long orderPrice) {
+        this.cancelPrice = cancelPrice;
+        this.orderPrice = orderPrice;
+    }
+}
+```

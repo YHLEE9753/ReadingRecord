@@ -34,7 +34,7 @@ NutritionFacts cocaCola = new NutritionFacts(240, 8, 100, 0, 35, 27);
 - 점층적 생성자 패턴의 안전성과 자바비즈 패턴의 가독성을 가지고 있다.
 - 필수 매개변수만으로 생성자를 호출해 빌더 객체를 얻는다.
 - 그 다음 내부 메서드들을 통해 원하는 선택 매개변수들을 선정한다.
-- 마지막으로 매개변수가 없는 build 메서드를 호출해 (보통은 불변) 객체를 얻는다.
+- **마지막으로 매개변수가 없는 build 메서드를 호출해 (보통은 불변) 객체를 얻는다.**
 - 빌더는 생성할 클래스 안에 정적 멤버 클래스로 만들어 두는 게 보통이다
 
 ```java
@@ -129,7 +129,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public abstract class Pizza {
-    public enum Topping{HAM, MUSHROOM, ONION, PEPPER, SAUSAGE} // Toppind enum
+    public enum Topping{HAM, MUSHROOM, ONION, PEPPER, SAUSAGE} // Topping enum
     final Set<Topping> toppings; // set 으로 설정
 
     abstract static class Builder<T extends Builder<T>>{

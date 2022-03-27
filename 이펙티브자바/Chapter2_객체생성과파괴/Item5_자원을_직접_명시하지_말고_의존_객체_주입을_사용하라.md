@@ -50,7 +50,9 @@ public class SpellChecker{
 ## 4. 변형 - 생성자에 자원 팩터리를 넘겨주는 방식
 팩터리 : 호출할 때마다 특정 타입의 인스턴스를 반복적으로 만들어주는 객체<br>
 팩터리 메서드 패턴(Factory Method Pattern)의 구현이다.<br>
-자바 8의 ```Supplier<T>``` 인터페이스가 팩터리를 표현한 완벽한 예이다.
+자바 8의 ```Supplier<T>``` 인터페이스가 팩터리를 표현한 완벽한 예이다.<br>
+```Supplier<T>```를 입력으로 받는 메서드는 일반적으로 한정적 와일드카드 타입을 사용해 팩터리의 타입 매개변수를 제한해야 한다.<br>
+이 방식을 사용해 클라이언트는 자신이 명시한 타입의 하위타입이라면 무엇이든 생성할 수 있는 팩터리를 넘길 수 있다.
 ```java
 Mosaic create(Supplier<? extends Tile> tileFactory) { ... }
 ```

@@ -93,3 +93,7 @@ public class Stack {
 - 클라이언트가 콜백을 등록만 하고 명확히 해지하지 않는다면 콜백은 계속 쌓여 갈 것이다
 - 콜백을 약한 참조(weak reference)로 저장하면 카비지 컬렉터가 즉시 수거해간다.
 - 예로 WeakHashMap 에 키로 저장하면 된다.
+
+WeakHashMap : https://blog.breakingthat.com/2018/08/26/java-collection-map-weakhashmap/
+
+리스너, 콜백 : https://onlyfor-me-blog.tistory.com/47

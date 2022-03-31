@@ -10,17 +10,17 @@
 - 불변 객체는 언제나 재사용 가능하다
 
 ```java
-String s = new String("yong");
-String s2 = new String("yong");
-System.out.plintln(s == s2); // false 반환
+String s=new String("yong");
+        String s2=new String("yong");
+        System.out.plintln(s==s2); // false 반환
 ```
 
 위 코드는 문장 생성시 마다 String 인스턴스를 만든다. String 인스턴스가 수백만 개 만들어질 수도 있다.
 
 ```java
-String s = "yong";
-String s2 = "yong";
-System.out.plintln(s == s2); // true 반환
+String s="yong";
+        String s2="yong";
+        System.out.plintln(s==s2); // true 반환
 ```
 
 새로운 인스턴스를 매번 만드는 대신 하나의 String 인스턴스를 사용한다. 가상머신안에서 똑같은 문자열 리터럴을 사용하는 모든 코드가 같은 객체를 재사용함이 보장된다.
@@ -29,13 +29,13 @@ System.out.plintln(s == s2); // true 반환
 
 ```java
 public class Main {
-  public static void main(String[] args) {
-    Boolean true1 = Boolean.valueOf("true");
-    Boolean true2 = Boolean.valueOf("true");
+    public static void main(String[] args) {
+        Boolean true1 = Boolean.valueOf("true");
+        Boolean true2 = Boolean.valueOf("true");
 
-    System.out.println(true1 == true2); //true 반환
-    System.out.println(Boolean.TRUE);
-  }
+        System.out.println(true1 == true2); //true 반환
+        System.out.println(Boolean.TRUE);
+    }
 }
 
 ```
@@ -231,60 +231,58 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         }
         return ks;
     }
-}
-```
 
-```java
-final class KeySet extends AbstractSet<K> {
-    public final int size() {
-        return size;
-    }
+    
+    final class KeySet extends AbstractSet<K> {
+        public final int size() {
+            return size;
+        }
 
-    public final void clear() {
-        HashMap.this.clear();
-    }
+        public final void clear() {
+            HashMap.this.clear();
+        }
 
-    public final Iterator<K> iterator() {
-        return new KeyIterator();
-    }
+        public final Iterator<K> iterator() {
+            return new KeyIterator();
+        }
 
-    public final boolean contains(Object o) {
-        return containsKey(o);
-    }
+        public final boolean contains(Object o) {
+            return containsKey(o);
+        }
 
-    public final boolean remove(Object key) {
-        return removeNode(hash(key), key, null, false, true) != null;
-    }
+        public final boolean remove(Object key) {
+            return removeNode(hash(key), key, null, false, true) != null;
+        }
 
-    public final Spliterator<K> spliterator() {
-        return new KeySpliterator<>(HashMap.this, 0, -1, 0, 0);
-    }
+        public final Spliterator<K> spliterator() {
+            return new KeySpliterator<>(HashMap.this, 0, -1, 0, 0);
+        }
 
-    public Object[] toArray() {
-        return keysToArray(new Object[size]);
-    }
+        public Object[] toArray() {
+            return keysToArray(new Object[size]);
+        }
 
-    public <T> T[] toArray(T[] a) {
-        return keysToArray(prepareArray(a));
-    }
+        public <T> T[] toArray(T[] a) {
+            return keysToArray(prepareArray(a));
+        }
 
-    public final void forEach(Consumer<? super K> action) {
-        Node<K, V>[] tab;
-        if (action == null)
-            throw new NullPointerException();
-        if (size > 0 && (tab = table) != null) {
-            int mc = modCount;
-            for (Node<K, V> e : tab) {
-                for (; e != null; e = e.next)
-                    action.accept(e.key);
+        public final void forEach(Consumer<? super K> action) {
+            Node<K, V>[] tab;
+            if (action == null)
+                throw new NullPointerException();
+            if (size > 0 && (tab = table) != null) {
+                int mc = modCount;
+                for (Node<K, V> e : tab) {
+                    for (; e != null; e = e.next)
+                        action.accept(e.key);
+                }
+                if (modCount != mc)
+                    throw new ConcurrentModificationException();
             }
-            if (modCount != mc)
-                throw new ConcurrentModificationException();
         }
     }
 }
 ```
-
 
 ```java
 public class UsingKeySet {
@@ -303,6 +301,7 @@ public class UsingKeySet {
     }
 }
 ```
+
 이 Set 인스턴스의 상태에 변경이 일어나면, 뒷단 객체에 해당하는 Map 인스턴스도 맞춰서 상태 변경이 일어난다.<br>
 keySet이 Set 인터페이스를 매번 새로 만들어도 상관은 없지만, 그럴 필요도 없고 이득도 없다.<br>
 

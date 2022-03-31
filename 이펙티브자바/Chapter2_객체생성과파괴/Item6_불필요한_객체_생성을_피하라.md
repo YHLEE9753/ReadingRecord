@@ -10,13 +10,17 @@
 - 불변 객체는 언제나 재사용 가능하다
 
 ```java
-String s=new String("yong");
+String s = new String("yong");
+String s2 = new String("yong");
+System.out.plintln(s == s2); // false 반환
 ```
 
 위 코드는 문장 생성시 마다 String 인스턴스를 만든다. String 인스턴스가 수백만 개 만들어질 수도 있다.
 
 ```java
-String s="yong";
+String s = "yong";
+String s2 = "yong";
+System.out.plintln(s == s2); // true 반환
 ```
 
 새로운 인스턴스를 매번 만드는 대신 하나의 String 인스턴스를 사용한다. 가상머신안에서 똑같은 문자열 리터럴을 사용하는 모든 코드가 같은 객체를 재사용함이 보장된다.
@@ -24,19 +28,16 @@ String s="yong";
 ## 2. 정적 팩터리 메서드를 제공하는 불변 클래스의 정적 팩터리 메서드를 통해 불필요한 객체 생성 회피
 
 ```java
-    public static LocalTime of(int hour,int minute){
-        ChronoField.HOUR_OF_DAY.checkValidValue((long)hour);
-        if(minute==0){
-        return HOURS[hour];
-        }else{
-        ChronoField.MINUTE_OF_HOUR.checkValidValue((long)minute);
-        return new LocalTime(hour,minute,0,0);
-        }
-        }
-        ...
+public class Main {
+  public static void main(String[] args) {
+    Boolean true1 = Boolean.valueOf("true");
+    Boolean true2 = Boolean.valueOf("true");
 
-        // hour, minutes을 인자로 받아서 9시 30분을 의미하는 LocalTime 객체를 반환한다.
-        LocalTime openTime=LocalTime.of(9,30);
+    System.out.println(true1 == true2); //true 반환
+    System.out.println(Boolean.TRUE);
+  }
+}
+
 ```
 
 - 불변 클래스에서는 정적 팩터리 메서드를 사용해 불필요한 객체 생성을 피할 수 있다.
@@ -284,6 +285,24 @@ final class KeySet extends AbstractSet<K> {
 }
 ```
 
+
+```java
+public class UsingKeySet {
+
+    public static void main(String[] args) {
+        Map<String, Integer> menu = new HashMap<>();
+        menu.put("Burger", 8);
+        menu.put("Pizza", 9);
+
+        Set<String> names1 = menu.keySet();
+        Set<String> names2 = menu.keySet();
+
+        names1.remove("Burger");
+        System.out.println(names2.size()); // 1
+        System.out.println(menu.size()); // 1
+    }
+}
+```
 이 Set 인스턴스의 상태에 변경이 일어나면, 뒷단 객체에 해당하는 Map 인스턴스도 맞춰서 상태 변경이 일어난다.<br>
 keySet이 Set 인터페이스를 매번 새로 만들어도 상관은 없지만, 그럴 필요도 없고 이득도 없다.<br>
 

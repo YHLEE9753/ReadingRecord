@@ -1,6 +1,7 @@
 package Object.Chapter5;
 
 import java.time.Duration;
+import java.util.List;
 
 public class Movie {
     // 5. 인스턴스 변수설정
@@ -16,7 +17,7 @@ public class Movie {
     // 4. 영화비 계산을 위해 메서드 구현(책임 결정)
     public Money calculateMovieFee(Screening screening){
         if(isDiscountable(screening)){
-            return fee.minus(calculateMovieFee());
+            return fee.minus(calculateMovieFee(screening));
         }
         return fee;
     }
@@ -47,6 +48,6 @@ public class Movie {
     }
 
     private Money calculateNoneDiscountAmount(){
-        return Money.ZERO
+        return Money.ZERO;
     }
 }

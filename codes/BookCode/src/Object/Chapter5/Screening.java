@@ -1,5 +1,8 @@
 package Object.Chapter5;
 
+import Object.Chapter2.Customer;
+import Object.Chapter2.Reservation;
+
 import java.time.LocalDateTime;
 
 public class Screening {
@@ -9,7 +12,7 @@ public class Screening {
     private LocalDateTime whenScreened;
 
     // 1. 책임을 결정
-    public Reservation reserve(Customer customer, int audienceCount);
+//    public Reservation reserve(Customer customer, int audienceCount);
 
     // 3. 협력을 통해 다른 객체에게 메시지를 통해 책임 할당
     private Money calculateFee(int audienceCount){

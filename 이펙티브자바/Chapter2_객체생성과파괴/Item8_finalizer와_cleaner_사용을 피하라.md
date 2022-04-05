@@ -4,7 +4,39 @@
 
 2022/04/05
 
-## 1. finalizer 예시
+## 0. finalize
+finalize 는 객체가 소멸될 때 호출되기로 약속된 메소드 이다.<br>
+
+GC 를 먼저이해해보자<br>
+어떤 인스턴스를 만들어 변수에 담았다. 그런데 그 변수를 사용하는 곳이 더이상 없다면 변수와 변수에 담겨있는 인스턴스는 더이상 메모리에 머물고 있을 필요가 없다. 자바는 이를 감지하고 자동으로 쓰지 않은 데이터를 삭제한다.<br>
+
+finalize 는 GC 가 회수하지 못하는 네이티브 자원의 정리에 사용된다. 자바 객체가 아니므로 GC 대상이 아니기 때문에 finalizer 를 명시적으로 호출함으로 자원을 회수할 수 있다.
+
+객체의 close 를 명시적으로 호출하지 않은 경우 finalizer 가 이차 방어선의 느낌으로 작동될수가 있다.<br>
+
+네이티브 자원이란?
+```java
+public class HelloJNITest{
+    static {
+        // Native Library 로드(Unix는 libhello.so, Windows는 hello.dll)
+        System.loadLibrary("hello");
+    }
+    
+    // 네이티브 메서드 선언, 구현 코드는 C, C++언어 기반
+    private native void sayHi();
+    
+    public static void main(String[] args) {
+        // 인스턴스 생성, 네이티브 메서드 호출
+        new HelloJNITest().sayHello();
+    
+    }
+}
+```
+자바보다 플랫폼 종속성이 높고 이식성도 낮으며 디버깅하기도 어렵습니다. 성능적인 측면으로는 오히려 속도가 더 느릴 수 있으며 가비지 컬렉터가 네이티브 메모리는 자동 회수하지 못하며 심지어 추적할 수도 없습니다. 자바 코드와 네이티브 메서드와의 호출 사이에서 비용도 발생하며 이를 잇는 코드를 작성하는 것도 귀찮은 작업이며 가독성도 떨어집니다.
+
+따라서 Low 레벨 자원이나 네이티브 라이브러리를 반드시 사용해야만 하는 경우가 아니라면 네이티브 코드는 권장되지 않습니다. 사용하더라도 최소한만 사용하고 테스트를 철저히 해야 합니다.
+
+## 1. finalize 예시
 **FinalizerExample.java**
 ```java
 public class FinalizerExample {

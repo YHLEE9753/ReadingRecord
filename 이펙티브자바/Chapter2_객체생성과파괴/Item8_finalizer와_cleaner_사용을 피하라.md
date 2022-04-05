@@ -10,11 +10,12 @@ finalize 는 객체가 소멸될 때 호출되기로 약속된 메소드 이다.
 GC 를 먼저이해해보자<br>
 어떤 인스턴스를 만들어 변수에 담았다. 그런데 그 변수를 사용하는 곳이 더이상 없다면 변수와 변수에 담겨있는 인스턴스는 더이상 메모리에 머물고 있을 필요가 없다. 자바는 이를 감지하고 자동으로 쓰지 않은 데이터를 삭제한다.<br>
 
-finalize 는 GC 가 회수하지 못하는 네이티브 자원의 정리에 사용된다. 자바 객체가 아니므로 GC 대상이 아니기 때문에 finalizer 를 명시적으로 호출함으로 자원을 회수할 수 있다.
+1. 객체의 close 를 명시적으로 호출하지 않은 경우 finalizer 가 이차 방어선의 느낌으로 작동될수가 있다.<br>
 
-객체의 close 를 명시적으로 호출하지 않은 경우 finalizer 가 이차 방어선의 느낌으로 작동될수가 있다.<br>
+2. finalize 는 GC 가 회수하지 못하는 네이티브 자원의 정리에 사용된다. 자바 객체가 아니므로 GC 대상이 아니기 때문에 finalizer 를 명시적으로 호출함으로 자원을 회수할 수 있다.
 
-네이티브 자원이란?
+
+**네이티브 자원이란?**
 ```java
 public class HelloJNITest{
     static {
@@ -125,23 +126,62 @@ Final 클래스는 상속이 안되니까 근본적으로 이런 공격이 막�
 
 네이티브 객체는 일반적인 객체가 아니라서 GC가 그 존재를 모른다. 네이티브 피어가 들고 있는 리소스가 중요하지 않은 자원이며, 성능상 영향이 크지 않다면 Cleaner나 Finalizer를 사용해서 해당 자원을 반납할 수도 있을 것이다. 하지만, 중요한 리소스인 경우에는 위에서 언급한대로 `close` 메소드를 사용하는게 좋다.
 
-```java
-public class FinalizerExample {
+## Cleaner 예제 코드
 
-    // Object에 있는 메서드이므로 Override 가능
-    @Override
-    protected final void finalize() throws Throwable {
-        System.out.println("Clean up");
+```java
+
+import java.lang.ref.Cleaner;
+
+// 코드 8-1 cleaner를 안전망으로 활용하는 AutoCloseable 클래스 (44쪽)
+public class Room implements AutoCloseable {
+    private static final Cleaner cleaner = Cleaner.create();
+
+    // 청소가 필요한 자원. 절대 Room을 참조해서는 안 된다!
+    private static class State implements Runnable {
+        int numJunkPiles; // Number of junk piles in this room
+
+        State(int numJunkPiles) {
+            this.numJunkPiles = numJunkPiles;
+        }
+
+        // close 메서드나 cleaner가 호출한다.
+        @Override public void run() {
+            System.out.println("Cleaning room");
+            numJunkPiles = 0;
+        }
     }
 
-    public void hello() {
-        System.out.println("hi");
+    // 방의 상태. cleanable과 공유한다.
+    private final State state;
+
+    // cleanable 객체. 수거 대상이 되면 방을 청소한다.
+    private final Cleaner.Cleanable cleanable;
+
+    public Room(int numJunkPiles) {
+        state = new State(numJunkPiles);
+        cleanable = cleaner.register(this, state);
+    }
+
+    @Override public void close() {
+        cleanable.clean();
     }
 }
 ```
 주의 할 점
 * Cleaner 쓰레드(`CleanerRunner`)는 정리할 대상인 인스턴스 (`CleanerSample`)을 참조하면 안된다. 순환 참조가 생겨서 GC 대상이 되질 못한다.
 * Cleaner 쓰레드를 만들 클래스는 반드시 static 클래스여야 한다. non-static 클래스(익명 클래스도 마찬가지)의 인스턴스는 그걸 감싸고 있는 클래스의 인스턴스를 잠조하지 않는다.
+
+### 순환참조
+객체에 대한 참조가 추가 될 때마다 (예 : 변수 또는 필드에 할당되거나, 메소드에 전달되는 등) 참조 횟수가 1 씩 증가합니다.<br>
+객체에 대한 참조가 제거 될 때마다 (메소드가 반환되고 변수가 범위를 벗어남, 필드가 다른 객체에 다시 할당되거나 필드를 포함하는 객체가 가비지 수집 됨) 참조 횟수가 1 씩 감소합니다.<br>
+참조 카운트가 0에 도달하면 더 이상 객체에 대한 참조가 없으므로 아무도 더 이상 사용할 수 없으므로 가비지이므로 수집 할 수 있습니다<br>
+
+### 순환참조 해결법
+1. 무시한다.. 메모리가 충분하면주기가 작고 드물고 런타임이 짧을 경우주기를 수집하지 않고 벗어날 수 있습니다. 쉘 스크립트 인터프리터를 생각해보십시오. 쉘 스크립트는 일반적으로 몇 초 동안 만 실행되며 많은 메모리를 할당하지 않습니다.
+2. Mark and Sweep 알고리즘 사용
+
+Mark and Sweep 이란 시작 노드(Root)에서 부터 시작하여 참조할 수 있는 객체들을 탐지해 내려가며 Mark 한다. 그리고 Mark 가 끝나면 힙 내부를 돌면서 Mark 되지 않은 메모리들을 해제(Sweep)한다.
+![img.png](img.png)
 
 ## 참고
 * [AutoCloseable](https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html)

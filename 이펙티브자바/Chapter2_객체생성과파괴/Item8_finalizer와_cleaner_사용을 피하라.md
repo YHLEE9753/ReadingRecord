@@ -4,6 +4,10 @@
 
 2022/04/05
 
+## -1. 출처
+백기선님의 강의와 자료를 참고하였습니다.<br>
+https://github.com/keesun/study/blob/master/effective-java/item8.md
+
 ## 0. finalize
 finalize 는 객체가 소멸될 때 호출되기로 약속된 메소드 이다.<br>
 

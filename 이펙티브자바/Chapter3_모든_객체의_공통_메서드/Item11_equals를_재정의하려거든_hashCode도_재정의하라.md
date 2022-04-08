@@ -9,7 +9,7 @@
 - equals 를 재정의한 클래스 모두에서 hashCode도 재정의해야 한다.
 - 그렇지 않는다면 hashCode 일반 규약을 어기게 되어 해당 클래스의 인스턴스를 HashMap이나 HashSet 같은 컬렉션의 원소로 사용할 때 문제를 일으킬 것이다.
 
-### 1. hashCode 규약
+### hashCode 규약
 
 > equals 비교에 사용되는 정보가 변경되지 않았다면, 애플리케이션이 실행되는 동안 그 객체의 **hashCode 메서드는 몇 번을 호출해도 일관되게 항상 같은 값을 반환해야 한다**. 단, 애플리케이션을 다시 실행한다면 이 값이 달라져도 상관없다.
 
@@ -95,14 +95,14 @@ Hash Collision(해시 충돌) 의 가능성이 존재한다<br>
 
 **해시 충돌 해결법(Collision Resolution)**<br>
 
-1. Separate Chaining(간추려서 Chaining)<br>
+1. **Separate Chaining(간추려서 Chaining)**<br>
 
 ![img_2.png](img_2.png)
 
 Sandra가 들어가는데 충돌이 일어나니 기존에 있던 John의 값에 연결시켰다.<br>
 체이닝(Chaining)은 자료 저장 시, 저장소(bucket)에서 충돌이 일어나면 해당 값을 기존 값과 연결시키는 기법이다.
 
-3. Open Addressing(개방주소법)<br>
+2. **Open Addressing(개방주소법)**<br>
 
 개방주소법은 데이터의 해시(hash)가 변경되지 않았던 chaining과는 달리 비어있는 해시(hash)를 찾아 데이터를 저장하는 기법이다.
 

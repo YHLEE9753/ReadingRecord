@@ -8,5 +8,10 @@ public class OuterClass {
     private class InnerClass{
         public int open2 = 100;
         public int close2 = 20;
+
+        public InnerClass(int open2, int close2) {
+            this.open2 = open2;
+            this.close2 = close2;
+        }
     }
 }

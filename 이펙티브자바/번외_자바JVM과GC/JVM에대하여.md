@@ -19,6 +19,7 @@
 ### 1. JVM 은 무엇인가?
 자바는 source code 를 실행하기 전에 compile 과 interpret 2개의 과정이 필요하다
 1. compiler : Java program 을 Java Byte Code(Binary form) 으로 compile 을 한다.
+
 ![img_5.png](img_5.png)
 
 - Java ByteCode : Java Virtual machine(JVM) 에 사용되는 machine language(아직은 컴퓨터가 읽을수 없는 언어)
@@ -27,7 +28,9 @@
 2. Special Java Interpreter : compiled binary byte code 를 specific machine languate 로 convert 한다.
 
 즉 JVM 을 통해 source code 를 compile 하고 interpret 하여 컴퓨터가 이해할 수 있게 바꾸는 역할을 한다.
+
 ![img_6.png](img_6.png)
+
 ### 2. JVM 이 하는 역할은 무엇인가?
 Java application 은 **WORA**(Write One Run Anywhere)입니다. 즉 Java program 은 한번만 적으면 되고, 이것은 Java program 에 변화를 주지 않으면서 다른 platform 에서도 돌아가야 합니다.
 
@@ -62,7 +65,9 @@ JVM Architecture 에는 3개의 main subsystem 이 존재합니다.
 classLoader 는 class 를 memory 에 load 하는 JVM Architecture 의 일부이다.
 
 모든 JVM 은 ClassLoader 로 구성되어 이고, 그 안에는 built-in 된 3개의 classloaders 가 존재한다.
+
 ![img_7.png](img_7.png)
+
 **1. Bootstrap classLoader**
    이것은 Extenstion classloader 의 super class 이다. 이것은 rt.jar file 을 load 한다.
    1. 최상위 클래스 로더로 유일하게 JAVA 가 아니라 네이티브 코드로 구현이 되어있다.
@@ -91,6 +96,7 @@ public class Test1 {
     }
 }
 ```
+
 ![img_9.png](img_9.png)
 
 ### 4.1.2 ClassLoader 과정

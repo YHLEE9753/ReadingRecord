@@ -104,26 +104,28 @@ public class Test1 {
 ![img_8.png](img_8.png)
 
 **1. Loading**
+
 **클래스 파일을 가져와서 JVM 메모리에 로드한다.**
 
 이 작업은 file 을 실행하기 위해 secondary memory 에서 main memory(RAM) 로 load 하는 작업입니다.
 
-Classloader 는 .class file 을 읽고, 그 에 상응하는 binary data 를 만들고, 이것을 method area 에 저장합니다.
+> Classloader 는 .class file 을 읽고, 그 에 상응하는 binary data 를 만들고, 이것을 method area 에 저장합니다.
 
-JVM 은 method area 에 각각의 .class file 에 맞는 정보를 저장합니다. 이 정보에는
-- fully qualified name of the loaded class 와 its immediate parent class
-- .class file 이 인터페이스인지 enum 인지 class 판단한다.
-- Modifier, Variables and Method information, etc.
+> JVM 은 method area 에 각각의 .class file 에 맞는 정보를 저장합니다. 이 정보에는
+> - fully qualified name of the loaded class 와 its immediate parent class
+> - .class file 이 인터페이스인지 enum 인지 class 판단한다.
+> - Modifier, Variables and Method information, etc.
 
-.class file 을 loading 한 후 JVM 은 이 file 을 heap memory 에 represent 하기 위해 class 유형의 객체(object) 를 만든다.
+> .class file 을 loading 한 후 JVM 은 이 file 을 heap memory 에 represent 하기 위해 class 유형의 객체(object) 를 만든다.
 
-.class 파일을 로드한 후 JVM은 힙 메모리에 이 파일을 나타내기 위해 Class 유형의 객체를 생성합니다.
+> .class 파일을 로드한 후 JVM은 힙 메모리에 이 파일을 나타내기 위해 Class 유형의 객체를 생성합니다.
 
-프로그래머는 이 클래스 오브젝트를 class level information 을 얻기 위해 사용할 수 있다.(클래스 이름, parent 이름, methods, variable information 등)
+> 프로그래머는 이 클래스 오브젝트를 class level information 을 얻기 위해 사용할 수 있다.(클래스 이름, parent 이름, methods, variable information 등)
 
-이 Object reference 를 얻기위 해 우리는 getClass() method 를 사용할 수 있다.
+> 이 Object reference 를 얻기위 해 우리는 getClass() method 를 사용할 수 있다.
 
 **2. Linking**
+
    1. Verifying
       - .class file 이 자바 언어 명세(Java Language Specification) 및 JVM 명세에 명시된 대로 구성되어 있는지 검사합니다.
       - verification 에 실패시 java.lang.Verify Exception 을 얻게 됩니다.
@@ -134,6 +136,7 @@ JVM 은 method area 에 각각의 .class file 에 맞는 정보를 저장합니�
       - method area 에서 찾아 참조된 엔터티를 찾습니다.
       
 **3. Initialization**
+
    - 이것은 모든 static variables(with their specific values in the block of the program) 를 할당하는 작업이 포함되어 있다.
    - 실행은 클래스에서는 위에서 아래로, 클래스 계층에서는 부모에서 자식으로 실행된다.
 
@@ -208,6 +211,7 @@ New/Young 영역 :
 - 바이트코드가 아닌 기계어로 작성된 프로그램을 실행시키는 영역이다.
 - 커널이 스택을 잡아 독자적으로 프로그램을 실행시킨다.
 
+실습 : https://deepu.tech/memory-management-in-jvm/
 
 ### 4.3 Execution Engine
 1. Interpreter: 

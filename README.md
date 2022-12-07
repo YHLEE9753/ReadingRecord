@@ -10,8 +10,8 @@
 [velog 기록](https://velog.io/@yhlee9753/series/%EB%8F%85%EC%84%9C%EC%8B%9C%EB%A6%AC%EC%A6%88)<br>
 [진행중] 친절한 SQL 튜닝 - 조시형 저 (2022/10/25 ~ 2022/00/00)<br>
 [git 스터디](https://github.com/Hoontudy/Friendly-SQL-Tuning) <br>
-[진행중] 만들면서 배우는 클린아키텍처 - 톰 홈버그 저/박소은 역 (2022/00/00 ~ 2022/00/00)<br>
-[git 스터디](https://github.com/Dev-Prison/) <br>
+[진행중] 만들면서 배우는 클린아키텍처 - 톰 홈버그 저/박소은 역 (2022/12/08 ~ 2022/00/00)<br>
+[git 스터디](https://github.com/Dev-Prison/Clean-Architecture) <br>
 
 ## 읽을 책 리스트
 IT 엔지니어를 위한 네트워크 입문 - 고재성<br>
